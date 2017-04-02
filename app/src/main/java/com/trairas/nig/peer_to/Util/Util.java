@@ -6,7 +6,7 @@ import android.util.Log;
  * Created by nig on 02/04/17.
  */
 
-public class util {
+public class Util {
 
     public void util(){}
 
