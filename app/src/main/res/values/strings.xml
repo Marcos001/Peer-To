@@ -11,6 +11,8 @@
     <string name="op_2">Pesquisar Palavra</string>
     <string name="op_3">Add Peer</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
