@@ -1,7 +1,6 @@
 package com.trairas.nig.peer_to.Fragmentos;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,7 +33,7 @@ public class AdicionarPalavra extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_adicionar_palavra, container, false);
+        final View view =  inflater.inflate(R.layout.fragment_adicionar_palavra, container, false);
 
         tv = (TextView) view.findViewById(R.id.add_p_tv_1);
         tv.setText(R.string.cp_tv_title);
@@ -44,13 +43,14 @@ public class AdicionarPalavra extends Fragment {
         bt.setText(R.string.cp_bt_add);
 
 
-
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String res = "DIGITADO = "+ed.getText();
+
+                Context c = view.getContext();
+                String res = "DIGITADO = "+ed.getText().toString();
                 u.print(res);
-                op.salvar(res);
+                op.salvar(res+"\n", c);
 
             }
         });

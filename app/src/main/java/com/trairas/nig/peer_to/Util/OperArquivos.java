@@ -15,13 +15,18 @@ import static android.content.Context.MODE_APPEND;
 public class OperArquivos {
 
     Util u = new Util();
-    final String FILE = "/data/words.wd";
+    final String FILE = "words.wd";
 
     public OperArquivos(){}
 
-    public void salvar(String palavra){
+    public void salvar(String palavra, Context ctx){
 
-        Context ctx = null;
+        if (ctx == null){
+            u.print("Contexto nulo.");
+            return;
+        }
+
+        u.print("word = "+palavra);
 
         try{
             
