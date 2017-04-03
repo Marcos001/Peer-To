@@ -23,6 +23,9 @@ public class AdicionarPalavra extends Fragment {
     Button bt;
     EditText ed;
 
+    TextView tv_2;
+    EditText ed_2;
+
 
     public AdicionarPalavra() {
         // Required empty public constructor
@@ -38,9 +41,15 @@ public class AdicionarPalavra extends Fragment {
         tv = (TextView) view.findViewById(R.id.add_p_tv_1);
         tv.setText(R.string.cp_tv_title);
         ed = (EditText) view.findViewById(R.id.add_p_edt_1);
-        ed.setText(R.string.hello_blank_fragment);
+        ed.setText(R.string.cp_tv_palavra);
         bt = (Button) view.findViewById(R.id.add_p_bt_1);
         bt.setText(R.string.cp_bt_add);
+
+        tv_2 = (TextView) view.findViewById(R.id.add_p_tv_2);
+        tv_2.setText(R.string.cp_tv_sig);
+        ed_2 = (EditText) view.findViewById(R.id.add_p_edt_2);
+        ed_2.setText(R.string.cp_ed_sig);
+
 
 
         bt.setOnClickListener(new View.OnClickListener() {

@@ -12,8 +12,11 @@
     <string name="op_3">Add Peer</string>
 
     <string name="cp_tv_title">Adicionar Palavra</string>
-    <string name="cp_tv_palavra">Adicione palavra</string>
+    <string name="cp_tv_palavra">palavra</string>
     <string name="cp_bt_add">Adicionar</string>
+
+    <string name="cp_tv_sig">Entre com o Significado</string>
+    <string name="cp_ed_sig">significado</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -2,6 +2,8 @@ package com.trairas.nig.peer_to.Util;
 
 import android.content.Context;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
@@ -18,6 +20,31 @@ public class OperArquivos {
     final String FILE = "words.wd";
 
     public OperArquivos(){}
+
+    public String ler(Context contexto){
+
+        try{
+            File arquivo_lido = contexto.getFileStreamPath(FILE);
+
+            if (arquivo_lido.exists()){
+                u.print("Arquivo existe");
+                FileInputStream arquivo_ler = contexto.openFileInput(FILE);
+                int tamanho =  arquivo_ler.available();
+                byte dadosBytesLidos[] = new byte[tamanho];
+                arquivo_ler.read(dadosBytesLidos);
+                String dadosLidos = new String(dadosBytesLidos);
+                u.print("Dados LIdos >\n"+dadosLidos);
+            return dadosLidos;
+            }
+            else{
+                u.print("Arquivo nao existe.");
+            }
+
+        }catch (Exception erro){
+
+        }
+    return "NAO DEU";
+    }
 
     public void salvar(String palavra, Context ctx){
 
@@ -46,6 +73,7 @@ public class OperArquivos {
 
 
     }
-    }
 
+
+}
 
