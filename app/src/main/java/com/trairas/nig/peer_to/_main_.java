@@ -1,9 +1,12 @@
 package com.trairas.nig.peer_to;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,13 +18,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.trairas.nig.peer_to.Fragmentos.MinhasPavras;
 import com.trairas.nig.peer_to.Util.*;
+
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+import java.util.List;
 
 public class _main_ extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     Util ut = new Util();
+
+    FragmentManager frag = getSupportFragmentManager();
 
 
     @Override
@@ -51,6 +61,10 @@ public class _main_ extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState != null){
+
+        }
 
 
     }
@@ -100,8 +114,12 @@ public class _main_ extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
+
+
         if (id == R.id.nav_camera) {
             ut.print("Criar palavra");
+            frag.beginTransaction().replace(R.id.conteudo, new MinhasPavras()).commit();
         } else if (id == R.id.nav_gallery) {
             ut.print("Pesquisar palavra");
         } else if (id == R.id.nav_slideshow) {
