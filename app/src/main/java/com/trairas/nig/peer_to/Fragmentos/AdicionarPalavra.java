@@ -18,6 +18,7 @@ import com.trairas.nig.peer_to.Util.*;
 public class AdicionarPalavra extends Fragment {
 
     Util u = new Util();
+    OperArquivos op = new OperArquivos();
 
     TextView tv;
     Button bt;
@@ -49,10 +50,8 @@ public class AdicionarPalavra extends Fragment {
             public void onClick(View v) {
                 String res = "DIGITADO = "+ed.getText();
                 u.print(res);
+                op.salvar(res);
 
-                //validar
-
-                //escrever no arquivo
             }
         });
 
