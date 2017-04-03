@@ -13,14 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
-import com.trairas.nig.peer_to.Fragmentos.CriarPalavra;
 import com.trairas.nig.peer_to.Util.*;
 
 public class _main_ extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-     Util ut = new Util();
+
+    Util ut = new Util();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class _main_ extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override
@@ -62,6 +66,9 @@ public class _main_ extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+
+
+
     }
 
     @Override
@@ -93,11 +100,8 @@ public class _main_ extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        FragmentManager frag = getSupportFragmentManager();
-
         if (id == R.id.nav_camera) {
             ut.print("Criar palavra");
-            frag.beginTransaction().replace(R.id.conteudo, new CriarPalavra()).commit();
         } else if (id == R.id.nav_gallery) {
             ut.print("Pesquisar palavra");
         } else if (id == R.id.nav_slideshow) {
