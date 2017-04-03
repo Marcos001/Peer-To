@@ -57,7 +57,7 @@ public class AdicionarPalavra extends Fragment {
             public void onClick(View v) {
 
                 Context c = view.getContext();
-                String res = "DIGITADO = "+ed.getText().toString();
+                String res = ed.getText().toString();
                 u.print(res);
                 op.salvar(res+"\n", c);
 

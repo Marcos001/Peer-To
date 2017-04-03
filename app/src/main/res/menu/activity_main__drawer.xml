@@ -6,7 +6,7 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@mipmap/ic_add_black_24dp"
-            android:title="@string/op_1" />
+            android:title="@string/cp_tv_title" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"

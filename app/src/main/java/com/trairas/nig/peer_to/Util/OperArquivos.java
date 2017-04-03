@@ -21,6 +21,37 @@ public class OperArquivos {
 
     public OperArquivos(){}
 
+    public String[] Todas_palavras(String palavras_arquivo){
+
+
+        int quantidade=0;
+
+        for(int i=0;i < palavras_arquivo.length();i++){
+            if(palavras_arquivo.charAt(i) == '\n'){
+                quantidade +=1;
+            }
+        }
+
+        String[] palavras = new String[quantidade];
+
+        String tmp = "";
+        int indice = 0;
+
+        for(int i=0;i < palavras_arquivo.length();i++){
+
+            if(palavras_arquivo.charAt(i) == '\n'){
+                palavras[indice] = tmp;
+                indice+=1;
+                tmp = "";
+            }
+            else{
+                tmp += palavras_arquivo.charAt(i);
+            }
+        }
+        return palavras;
+    }
+
+
     public String ler(Context contexto){
 
         try{
@@ -33,18 +64,21 @@ public class OperArquivos {
                 byte dadosBytesLidos[] = new byte[tamanho];
                 arquivo_ler.read(dadosBytesLidos);
                 String dadosLidos = new String(dadosBytesLidos);
-                u.print("Dados LIdos >\n"+dadosLidos);
+
+
             return dadosLidos;
             }
+
             else{
                 u.print("Arquivo nao existe.");
             }
 
         }catch (Exception erro){
-
+            u.print("Erro ao Ler.");
         }
-    return "NAO DEU";
+    return "NAO DEU\n";
     }
+
 
     public void salvar(String palavra, Context ctx){
 

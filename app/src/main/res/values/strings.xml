@@ -8,11 +8,12 @@
 
     <!-- Funcoes do menu lateral -->
     <string name="op_1">Criar Palavra</string>
-    <string name="op_2">Pesquisar Palavra</string>
+    <string name="op_2">Ver Minhas Palavras</string>
     <string name="op_3">Add Peer</string>
 
     <string name="cp_tv_title">Adicionar Palavra</string>
     <string name="cp_tv_palavra">palavra</string>
+    <string name="cp_tv_palavras">Palavras</string>
     <string name="cp_bt_add">Adicionar</string>
 
     <string name="cp_tv_sig">Entre com o Significado</string>
