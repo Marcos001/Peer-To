@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.trairas.nig.peer_to.Fragmentos.AdicionarPalavra;
 import com.trairas.nig.peer_to.Fragmentos.MinhasPavras;
 import com.trairas.nig.peer_to.Util.*;
 
@@ -62,7 +63,12 @@ public class _main_ extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (savedInstanceState != null){
+        if (savedInstanceState == null){
+           MinhasPavras mp = new MinhasPavras();
+
+            FragmentTransaction ft = frag.beginTransaction();
+            ft.add(R.id.conteudo, mp);
+            ft.commit();
 
         }
 
@@ -122,6 +128,7 @@ public class _main_ extends AppCompatActivity
             frag.beginTransaction().replace(R.id.conteudo, new MinhasPavras()).commit();
         } else if (id == R.id.nav_gallery) {
             ut.print("Pesquisar palavra");
+            frag.beginTransaction().replace(R.id.conteudo, new AdicionarPalavra()).commit();
         } else if (id == R.id.nav_slideshow) {
             ut.print("Add Peer");
         } else if (id == R.id.nav_manage) {
