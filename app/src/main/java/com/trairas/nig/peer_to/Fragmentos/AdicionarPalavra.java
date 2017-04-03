@@ -26,12 +26,22 @@ public class AdicionarPalavra extends Fragment {
     TextView tv_2;
     EditText ed_2;
 
+    String[] caractes;
+
 
     public AdicionarPalavra() {
         // Required empty public constructor
 
     }
 
+    private boolean validarCaracters(String entrada){
+
+        for(int i=0;i<entrada.length();i++){
+
+        }
+
+        return false;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,7 +67,14 @@ public class AdicionarPalavra extends Fragment {
             public void onClick(View v) {
 
                 Context c = view.getContext();
+
+                //obter entrada do usuario
                 String res = ed.getText().toString();
+                String res_sig = ed_2.getText().toString();
+
+
+                //validar entradas do usurario - ele sempre tem como fazer merda
+
                 u.print(res);
                 op.salvar(res+"\n", c);
 
