@@ -1,13 +1,51 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.trairas.nig.peer_to.Fragmentos.AdicionarPalavra">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/const_add_pal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="FRAGMENTO ADICONAR PALAVRA" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/add_p_tv_1"
+            android:layout_width="299dp"
+            android:layout_height="35dp"
+            android:text="TextView"
+            android:layout_marginLeft="34dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" />
+
+        <EditText
+            android:id="@+id/add_p_edt_1"
+            android:layout_width="299dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginTop="85dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/add_p_bt_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="34dp"
+            android:layout_marginTop="155dp"
+            android:text="Button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>
