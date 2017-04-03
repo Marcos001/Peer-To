@@ -16,14 +16,16 @@
             android:id="@+id/add_p_tv_1"
             android:layout_width="299dp"
             android:layout_height="35dp"
-            android:text="TextView"
             android:layout_marginLeft="34dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="25dp"
             android:layout_marginRight="8dp"
+            android:layout_marginTop="25dp"
+            android:text="TextView"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/add_p_edt_1"

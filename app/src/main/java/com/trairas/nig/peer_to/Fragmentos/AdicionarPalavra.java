@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 import com.trairas.nig.peer_to.R;
 
+import com.trairas.nig.peer_to.Util.*;
 
 public class AdicionarPalavra extends Fragment {
+
+    Util u = new Util();
 
     TextView tv;
     Button bt;
@@ -38,6 +41,21 @@ public class AdicionarPalavra extends Fragment {
         ed.setText(R.string.hello_blank_fragment);
         bt = (Button) view.findViewById(R.id.add_p_bt_1);
         bt.setText(R.string.cp_bt_add);
+
+
+
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String res = "DIGITADO = "+ed.getText();
+                u.print(res);
+
+                //validar
+
+                //escrever no arquivo
+            }
+        });
+
 
         return (view);
     }
