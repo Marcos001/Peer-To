@@ -1,15 +1,12 @@
 package com.trairas.nig.peer_to.Util;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.os.Environment;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 
-import com.trairas.nig.peer_to.Util.*;
+
+import static android.content.Context.MODE_APPEND;
 
 /**
  * Created by nig on 03/04/17.
@@ -18,24 +15,28 @@ import com.trairas.nig.peer_to.Util.*;
 public class OperArquivos {
 
     Util u = new Util();
-    Context ctx;
+    final String FILE = "/data/words.wd";
 
     public OperArquivos(){}
 
     public void salvar(String palavra){
 
-        FileOutputStream fos;
+        Context ctx = null;
 
         try{
+            
+            FileOutputStream arquivo = ctx.openFileOutput(FILE, MODE_APPEND);
+            arquivo.write(palavra.getBytes());
+            arquivo.close();
+            u.print("Arquivo Gravado");
+        }
 
-            fos = ctx.openFileOutput("/data/data/com.trairas.nig.peer_to/data/words.wd", Context.MODE_APPEND);
-            fos.write(palavra.getBytes());
-            fos.flush();
-            fos.close();
-            u.print("Deu certo");
+        catch (FileNotFoundException erro){
+            u.print("Arquivo nao encontrado");
+        }
 
-        } catch (Exception e) {
-            u.print("Falha");
+        catch (Exception e) {
+            u.print("Erro ao Gravar");
         }
 
 
