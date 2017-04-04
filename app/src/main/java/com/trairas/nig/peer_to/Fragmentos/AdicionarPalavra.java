@@ -77,7 +77,6 @@ public class AdicionarPalavra extends Fragment {
         return ver_palavra;
     }
 
-
     private boolean verificar_se_ja_tem(String palavra, Context c){
 
         boolean encontrado = false;
@@ -92,6 +91,7 @@ public class AdicionarPalavra extends Fragment {
 
         return encontrado;
     }
+
 
 
     @Override
@@ -126,31 +126,27 @@ public class AdicionarPalavra extends Fragment {
 
                 //-----------------Validando Resultados------------------------------------//
 
-                String resultado = "";
 
                 //validar entradas do usurario - ele sempre tem como fazer merda
                 if(validarCaracters(res)){
 
-                    resultado = "Palavra Valida";
                     //------------verificar se a palavra ja existe no discionario--------------------//
 
                     String resultado_2 = "";
 
                     if(verificar_se_ja_tem(res,c)){
-                        resultado_2 = "A palavra "+res+"ja contem!";
+                        resultado_2 = "A palavra "+res+" já contem!";
                     }
                     else{
-                        resultado_2 = "A palavra "+res+"foi Salva!";
+                        resultado_2 = "A palavra "+res+" foi Salva!";
                         op.salvar(res+"\n", c);
                     }
 
                     toast(resultado_2);
                 }
                 else{
-                    resultado = "Palavra Inalida";
+                    toast("Palavra Inválida");
                 }
-
-                toast(resultado);
 
 
             }
