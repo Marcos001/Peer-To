@@ -76,7 +76,7 @@ public class OperArquivos {
         }catch (Exception erro){
             u.print("Erro ao Ler.");
         }
-    return "NAO DEU\n";
+    return "Palavra\n";
     }
 
 

@@ -25,9 +25,10 @@ public class MinhasPavras extends Fragment {
     ArrayAdapter<String> array_adapter;
 
 
-    public MinhasPavras() {
 
+    public MinhasPavras() {
     }
+
 
     private ArrayList<String> preencherDados(String[] dados_vetor){
 
@@ -42,12 +43,8 @@ public class MinhasPavras extends Fragment {
             }
         }
 
-
-
-
         return dados;
     }
-
 
 
     @Override

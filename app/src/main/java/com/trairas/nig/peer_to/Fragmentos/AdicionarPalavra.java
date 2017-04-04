@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.trairas.nig.peer_to.R;
 
@@ -26,21 +27,54 @@ public class AdicionarPalavra extends Fragment {
     TextView tv_2;
     EditText ed_2;
 
-    String[] caractes;
+    String letras = "aáãâbcçdeéẽêfghiíjklmnopqrstuúûũvxyz";
+    String letrasM = "AÁÃÂBCÇDEÉẼÊFGHIÍJKLMNOPQRSTUÚÛŨVXYZ";
 
+    public void toast(String message){
+        Toast t = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
+        t.show();
+    }
 
     public AdicionarPalavra() {
         // Required empty public constructor
 
     }
 
+    private boolean valida_um_carater(char c){
+
+        boolean encontrou = false;
+
+        for(int i=0;i<letras.length();i++){
+            if(c == letras.charAt(i)){
+                encontrou = true;
+            }
+        }
+
+        for(int i=0;i<letrasM.length();i++){
+            if(c == letrasM.charAt(i)){
+                encontrou = true;
+            }
+        }
+
+        return encontrou;
+    }
+
     private boolean validarCaracters(String entrada){
+
+        boolean ver_palavra = true;
+
+        //verificando se os caracters sao validos
 
         for(int i=0;i<entrada.length();i++){
 
+             if(!valida_um_carater(entrada.charAt(i))){
+                 u.print("entrada invalida.");
+                 ver_palavra = false;
+             }
+
         }
 
-        return false;
+        return ver_palavra;
     }
 
     @Override
@@ -73,10 +107,31 @@ public class AdicionarPalavra extends Fragment {
                 String res_sig = ed_2.getText().toString();
 
 
+                //-----------------Validando Resultados------------------------------------//
+
+                String resultado = "";
+
                 //validar entradas do usurario - ele sempre tem como fazer merda
+                if(validarCaracters(res)){
+                    resultado = "Palavra Valida";
+                }
+                else{
+                    resultado = "Palavra Inalida";
+                }
+
+                toast(resultado);
 
                 u.print(res);
                 op.salvar(res+"\n", c);
+
+                //------------verificar se a palavra ja existe no discionario--------------------//
+
+                String[] palavras = op.Todas_palavras(op.ler(c));
+
+                for(int i=0;i< palavras.length;i++){
+                    u.print("palavra["+i+"] = "+palavras[i]);
+
+                }
 
             }
         });
