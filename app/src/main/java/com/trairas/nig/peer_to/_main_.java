@@ -124,9 +124,9 @@ public class _main_ extends AppCompatActivity
 
 
         if (id == R.id.nav_camera) {
-            frag.beginTransaction().replace(R.id.conteudo, new AdicionarPalavra()).commit();
-        } else if (id == R.id.nav_gallery) {
             frag.beginTransaction().replace(R.id.conteudo, new MinhasPavras()).commit();
+        } else if (id == R.id.nav_gallery) {
+            frag.beginTransaction().replace(R.id.conteudo, new AdicionarPalavra()).commit();
         } else if (id == R.id.nav_slideshow) {
             ut.print("Add Peer");
         } else if (id == R.id.nav_manage) {

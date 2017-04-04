@@ -77,6 +77,23 @@ public class AdicionarPalavra extends Fragment {
         return ver_palavra;
     }
 
+
+    private boolean verificar_se_ja_tem(String palavra, Context c){
+
+        boolean encontrado = false;
+
+        String[] palavras = op.Todas_palavras(op.ler(c));
+
+        for(int i=0;i< palavras.length;i++){
+            if(palavra.equals(palavras[i])){
+                encontrado = true;
+            }
+        }
+
+        return encontrado;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -113,7 +130,21 @@ public class AdicionarPalavra extends Fragment {
 
                 //validar entradas do usurario - ele sempre tem como fazer merda
                 if(validarCaracters(res)){
+
                     resultado = "Palavra Valida";
+                    //------------verificar se a palavra ja existe no discionario--------------------//
+
+                    String resultado_2 = "";
+
+                    if(verificar_se_ja_tem(res,c)){
+                        resultado_2 = "A palavra "+res+"ja contem!";
+                    }
+                    else{
+                        resultado_2 = "A palavra "+res+"foi Salva!";
+                        op.salvar(res+"\n", c);
+                    }
+
+                    toast(resultado_2);
                 }
                 else{
                     resultado = "Palavra Inalida";
@@ -121,17 +152,6 @@ public class AdicionarPalavra extends Fragment {
 
                 toast(resultado);
 
-                u.print(res);
-                op.salvar(res+"\n", c);
-
-                //------------verificar se a palavra ja existe no discionario--------------------//
-
-                String[] palavras = op.Todas_palavras(op.ler(c));
-
-                for(int i=0;i< palavras.length;i++){
-                    u.print("palavra["+i+"] = "+palavras[i]);
-
-                }
 
             }
         });
