@@ -58,7 +58,7 @@ public class MinhasPavras extends Fragment {
         /**-----------Formatação de Strings do Arquivo------------*/
 
 
-        String[] palavras = opr.Todas_palavras(opr.ler(c));
+        String[] palavras = opr.Todas_palavras(opr.ler(c, "words.wd"));
 
 
         /**-----------------------------------------------------------*/

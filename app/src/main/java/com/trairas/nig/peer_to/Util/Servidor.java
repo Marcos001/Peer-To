@@ -1,6 +1,8 @@
 package com.trairas.nig.peer_to.Util;
 
 
+import android.content.Context;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,11 +19,16 @@ public class Servidor {
     private ServerSocket server; //socket de servidor
     private Socket connection; //conexao com o cliente
     private int counter =  1;
+    OperArquivos opr;
+    Context c;
 
     Util u = new Util();
 
     //configura a GUI
-public Servidor(){
+public Servidor(Context ctx){
+
+    opr = new OperArquivos();
+    c = ctx;
 
 }    //fim do construtor do servidor
 
@@ -58,6 +65,7 @@ private void waitForConnection()throws IOException{
     displayMessage("Connection "+counter+" received from: "+connection.getInetAddress().getHostName());
 }
 
+
 //ontém fluxos para enviar e receber dados
 private void getStreams() throws IOException{
     //configura o fluxo de saida de dados
@@ -83,7 +91,12 @@ String message = "Connection sucessful!";
         try{//lê e exibe a menssagem
             message = (String) input.readObject();//lê uma nova menssagem
             displayMessage("\n"+message);
-            u.print(message);
+            pesquisarPalavra(message);
+
+
+            /**---------------------------------------------------------------**/
+
+
         }catch(ClassNotFoundException c){
         displayMessage("\nUnknowm object type received");
         }
@@ -106,6 +119,7 @@ private void closeConection(){
     
 }
 
+
 //envia menssagem ao cliente
 private void sendData(String message){
 
@@ -118,16 +132,41 @@ displayMessage("\nSERVER>> "+message);
 
 }
 
+
 //manipula a displayArea na  thread de despacho de eventos
 private void displayMessage(final String messageToDisplay){
    u.print(messageToDisplay);
 }
 
+
 //manipula a displayArea na Thread de despacho de eventos
 private void setTextFieldEditable(boolean b) {
 
 }
-    
+
+/**----------------------------------------------------------------------------**/
+
+private void pesquisarPalavra(String palavra){
+
+    String[] palavras = opr.Todas_palavras(opr.ler(c, "words.wd"));
+    boolean found =  false;
+
+    for(int i=0;i<palavras.length;i++){
+        u.print(palavra+" <> "+palavras[i]);
+        if (palavra.equals(palavras[i])){
+            found = true;
+        }
+    }
+
+    if (found){
+        sendData("ENCONTRADO");
+    }
+    else {
+        sendData("NAO ENCONTRADO");
+    }
+
+
+}
 
     
 }

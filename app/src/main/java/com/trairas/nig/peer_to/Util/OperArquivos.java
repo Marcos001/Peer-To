@@ -17,7 +17,6 @@ import static android.content.Context.MODE_APPEND;
 public class OperArquivos {
 
     Util u = new Util();
-    final String FILE = "words.wd";
 
     public OperArquivos(){}
 
@@ -52,7 +51,7 @@ public class OperArquivos {
     }
 
 
-    public String ler(Context contexto){
+    public String ler(Context contexto, String FILE){
 
         try{
             File arquivo_lido = contexto.getFileStreamPath(FILE);
@@ -80,7 +79,7 @@ public class OperArquivos {
     }
 
 
-    public void salvar(String palavra, Context ctx){
+    public void salvar(String palavra, Context ctx, String FILE){
 
         if (ctx == null){
             u.print("Contexto nulo.");

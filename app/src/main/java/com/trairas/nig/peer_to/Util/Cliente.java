@@ -61,6 +61,7 @@ public class Cliente{
             try{//lê e exibe a menssagem
                 message = (String) input.readObject();//lê uma nova menssagem
                 displayMessage("\n"+message);
+
             }catch(ClassNotFoundException c){
                 displayMessage("\nUnknowm object type received");
             }
@@ -128,6 +129,12 @@ public class Cliente{
     //manipula a displayArea na Thread de despacho de eventos
     private void setTextFieldEditable(boolean b) {
         u.print("setTextFieldEditable = "+b);
+    }
+
+    /**--------------------------------------------**/
+
+    public String obterMensageServidor(String message){
+        return message;
     }
 
 }

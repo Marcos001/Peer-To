@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.trairas.nig.peer_to.Fragmentos.AdicionarPalavra;
 import com.trairas.nig.peer_to.Fragmentos.MinhasPavras;
@@ -24,8 +25,11 @@ public class _main_ extends AppCompatActivity
 
 
     Util ut = new Util();
+    Servidor servidor;
 
     FragmentManager frag = getSupportFragmentManager();
+
+
 
 
     @Override
@@ -53,8 +57,23 @@ public class _main_ extends AppCompatActivity
             FragmentTransaction ft = frag.beginTransaction();
             ft.add(R.id.conteudo, mp);
             ft.commit();
-
         }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    //cliente =  new Cliente("10.0.0.107");
+                    //cliente.runCliente();
+                    servidor = new Servidor(getApplicationContext());
+                    servidor.runServer();
+                    Toast.makeText(getApplicationContext(), "End Server", Toast.LENGTH_SHORT);
+                }catch (Exception erro){
+                    Toast.makeText(getApplicationContext(), "Nao deu", Toast.LENGTH_SHORT);
+                }
+
+            }
+        }).start();
 
 
     }
@@ -70,8 +89,6 @@ public class _main_ extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-
-
 
     }
 

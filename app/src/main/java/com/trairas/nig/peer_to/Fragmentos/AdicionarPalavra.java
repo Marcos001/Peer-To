@@ -81,7 +81,7 @@ public class AdicionarPalavra extends Fragment {
 
         boolean encontrado = false;
 
-        String[] palavras = op.Todas_palavras(op.ler(c));
+        String[] palavras = op.Todas_palavras(op.ler(c, "words.wd"));
 
         for(int i=0;i< palavras.length;i++){
             if(palavra.equals(palavras[i])){
@@ -139,7 +139,7 @@ public class AdicionarPalavra extends Fragment {
                     }
                     else{
                         resultado_2 = "A palavra "+res+" foi Salva!";
-                        op.salvar(res+"\n", c);
+                        op.salvar(res+"\n", c, "words.wd");
                     }
 
                     toast(resultado_2);

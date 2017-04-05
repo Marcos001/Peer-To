@@ -26,11 +26,10 @@
 
 
     <!-- Peer to Peer -->
-    <string name="pt_tv_1">IP</string>
-    <string name="pt_tv_2">Escreva sua mensagem</string>
+    <string name="pt_tv_1">Digite a palavra para Pesuisar o Significado</string>
+    <string name="pt_tv_2">""</string>
 
-    <string name="pt_ed_1">ip</string>
-    <string name="pt_ed_2">write</string>
-    <string name="pt_bt_1">Enviar</string>
+    <string name="pt_ed_1">word</string>
+    <string name="pt_bt_1">Pesquisar</string>
 
 </resources>
