@@ -16,9 +16,11 @@ import static android.content.Context.MODE_APPEND;
 
 public class OperArquivos {
 
-    Util u = new Util();
+    Util u;
 
-    public OperArquivos(){}
+    public OperArquivos(){
+        u = new Util();
+    }
 
     public String[] Todas_palavras(String palavras_arquivo){
 

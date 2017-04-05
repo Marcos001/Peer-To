@@ -27,8 +27,7 @@ public class AdicionarPalavra extends Fragment {
     TextView tv_2;
     EditText ed_2;
 
-    String letras = "aáãâbcçdeéẽêfghiíjklmnopqrstuúûũvxyz";
-    String letrasM = "AÁÃÂBCÇDEÉẼÊFGHIÍJKLMNOPQRSTUÚÛŨVXYZ";
+    String letrasValidas = "aáãâbcçdeéẽêfghiíjklmnopqrstuúûũvxyzAÁÃÂBCÇDEÉẼÊFGHIÍJKLMNOPQRSTUÚÛŨVXYZ";
 
     public void toast(String message){
         Toast t = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
@@ -38,58 +37,6 @@ public class AdicionarPalavra extends Fragment {
     public AdicionarPalavra() {
         // Required empty public constructor
 
-    }
-
-    private boolean valida_um_carater(char c){
-
-        boolean encontrou = false;
-
-        for(int i=0;i<letras.length();i++){
-            if(c == letras.charAt(i)){
-                encontrou = true;
-            }
-        }
-
-        for(int i=0;i<letrasM.length();i++){
-            if(c == letrasM.charAt(i)){
-                encontrou = true;
-            }
-        }
-
-        return encontrou;
-    }
-
-    private boolean validarCaracters(String entrada){
-
-        boolean ver_palavra = true;
-
-        //verificando se os caracters sao validos
-
-        for(int i=0;i<entrada.length();i++){
-
-             if(!valida_um_carater(entrada.charAt(i))){
-                 u.print("entrada invalida.");
-                 ver_palavra = false;
-             }
-
-        }
-
-        return ver_palavra;
-    }
-
-    private boolean verificar_se_ja_tem(String palavra, Context c){
-
-        boolean encontrado = false;
-
-        String[] palavras = op.Todas_palavras(op.ler(c, "words.wd"));
-
-        for(int i=0;i< palavras.length;i++){
-            if(palavra.equals(palavras[i])){
-                encontrado = true;
-            }
-        }
-
-        return encontrado;
     }
 
 
@@ -128,13 +75,13 @@ public class AdicionarPalavra extends Fragment {
 
 
                 //validar entradas do usurario - ele sempre tem como fazer merda
-                if(validarCaracters(res)){
+                if(u.validarCaracters(res, letrasValidas)){
 
                     //------------verificar se a palavra ja existe no discionario--------------------//
 
                     String resultado_2 = "";
 
-                    if(verificar_se_ja_tem(res,c)){
+                    if(u.verificar_se_ja_tem(res,c, "words.wd")){
                         resultado_2 = "A palavra "+res+" já contem!";
                     }
                     else{
