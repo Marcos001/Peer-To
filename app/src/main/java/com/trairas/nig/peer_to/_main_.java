@@ -1,13 +1,8 @@
 package com.trairas.nig.peer_to;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,15 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import com.trairas.nig.peer_to.Fragmentos.AdicionarPalavra;
 import com.trairas.nig.peer_to.Fragmentos.MinhasPavras;
+import com.trairas.nig.peer_to.Fragmentos.PeerToPeer;
+import com.trairas.nig.peer_to.Fragmentos.PesquisarPalavra;
 import com.trairas.nig.peer_to.Util.*;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.List;
 
 public class _main_ extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,15 +37,6 @@ public class _main_ extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Substitua por sua própria ação", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -121,17 +105,17 @@ public class _main_ extends AppCompatActivity
         int id = item.getItemId();
 
 
-
-
         if (id == R.id.nav_camera) {
             frag.beginTransaction().replace(R.id.conteudo, new MinhasPavras()).commit();
         } else if (id == R.id.nav_gallery) {
             frag.beginTransaction().replace(R.id.conteudo, new AdicionarPalavra()).commit();
         } else if (id == R.id.nav_slideshow) {
-            ut.print("Add Peer");
+            frag.beginTransaction().replace(R.id.conteudo, new PesquisarPalavra()).commit();
         } else if (id == R.id.nav_manage) {
-            ut.print("?");
-        }/* else if (id == R.id.nav_share) {
+            frag.beginTransaction().replace(R.id.conteudo, new PeerToPeer()).commit();
+        }
+
+        /* else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

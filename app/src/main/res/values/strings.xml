@@ -20,7 +20,17 @@
     <string name="cp_tv_sig">Entre com o Significado</string>
     <string name="cp_ed_sig">significado</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Peer to Peer -->
+    <string name="pt_tv_1">IP</string>
+    <string name="pt_tv_2">Escreva sua mensagem</string>
+
+    <string name="pt_ed_1">ip</string>
+    <string name="pt_ed_2">write</string>
+    <string name="pt_bt_1">Enviar</string>
 
 </resources>

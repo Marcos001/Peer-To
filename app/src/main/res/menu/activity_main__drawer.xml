@@ -5,15 +5,15 @@
 
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_visibility_black_24dp_2x"
             android:title="@string/op_2" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@mipmap/ic_add_black_24dp"
+            android:icon="@drawable/ic_create_black_24dp_2x"
             android:title="@string/cp_tv_title" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_search_black_24dp_2x"
             android:title="@string/op_3" />
         <item
             android:id="@+id/nav_manage"
