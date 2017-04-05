@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.trairas.nig.peer_to.R;
 import com.trairas.nig.peer_to.Util.Cliente;
+import com.trairas.nig.peer_to.Util.OperArquivos;
 import com.trairas.nig.peer_to.Util.Servidor;
+import com.trairas.nig.peer_to.Util.Util;
 
 
 public class PesquisarPalavra extends Fragment {
@@ -29,15 +32,45 @@ public class PesquisarPalavra extends Fragment {
     Button bt_1;
 
     Cliente cliente;
+    OperArquivos opr;
+    Util u;
 
 
 
 
     public PesquisarPalavra() {
         // Required empty public constructor
+        opr = new OperArquivos();
+        u = new Util();
     }
 
-    private void pesquidarPalavra(String palavra){
+    public void toask(String m){
+        Toast.makeText(getContext(), m, Toast.LENGTH_SHORT);
+    }
+
+    private void pesquisar_peer_por_peer(String palavra, String ip){
+        cliente = new Cliente(ip);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    cliente.runCliente();
+                }catch (Exception erro){
+                    u.print("Erro > \n"+erro);
+                }
+            }
+        }).start();
+    }
+
+    private void pesquidarPalavra(String busca){
+
+        String[] palavras = opr.Todas_palavras(opr.ler(getContext(), "lista_ip.txt"));
+
+        for(int i=0;i<palavras.length;i++){
+             u.print(palavras[i]);
+            pesquisar_peer_por_peer(busca, palavras[i]);
+        }
+
 
     }
 
@@ -66,7 +99,7 @@ public class PesquisarPalavra extends Fragment {
         bt_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             // cliente.sendData(ed_2.getText().toString());
+                pesquidarPalavra(ed_1.getText().toString());
             }
         });
 

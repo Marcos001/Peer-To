@@ -24,10 +24,12 @@ public class Cliente{
     //inicializa chatServer e configura a GUI
     public Cliente(String host){
 
-
         chatServer =  host;
 
+    }
 
+    public String getMessage(){
+        return this.message;
     }
 
     public void runCliente(){
