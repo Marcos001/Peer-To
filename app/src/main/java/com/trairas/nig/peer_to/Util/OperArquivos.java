@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 
 
 import static android.content.Context.MODE_APPEND;
+import static android.content.Context.MODE_ENABLE_WRITE_AHEAD_LOGGING;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by nig on 03/04/17.
@@ -106,8 +108,13 @@ public class OperArquivos {
             u.print("Erro ao Gravar");
         }
 
-
     }
+
+    /**-------------------------------------------------------------*/
+
+
+
+
 
 
 }

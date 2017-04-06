@@ -50,11 +50,13 @@ public class PesquisarPalavra extends Fragment {
 
     private void pesquisar_peer_por_peer(final String palavra, final String ip){
 
+
+
         try{
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    new client().rodarCliente(ip, palavra);
+                    new client(ip, palavra);
                 }
             }).start();
         }

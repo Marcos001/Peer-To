@@ -14,14 +14,13 @@ public class Server extends Thread{
     private ObjectOutputStream output; //gera o fluxo de saida para o cliente
     private ObjectInputStream input; // gera o fluxo de entrada a apartir do cliente
     private OperArquivos opr;
-    private Util u;
+    private Util u = new Util();
     Context c;
 
     public void rodarServidor(Context ct){
         ServerSocket s = null;
         opr = new OperArquivos();
-        u = new Util();
-        this.c = ct;
+
 
         try{
             s = new ServerSocket(12345);
@@ -60,7 +59,9 @@ public class Server extends Thread{
 
     private String pesquisarPalavra(String palavra){
 
-        String[] palavras = opr.Todas_palavras(opr.ler(c, "words.wd"));
+        meuApp mp =  new meuApp();
+
+        String[] palavras = opr.Todas_palavras(opr.ler(mp.getBaseContext(), "words.wd"));
 
         boolean found =  false;
 
@@ -82,7 +83,7 @@ public class Server extends Thread{
 
             try{
 
-                System.out.println("metodo run");
+               u.print("metodo run");
 
                 //configura o fluxo de saida de dados
                 output = new ObjectOutputStream(conexao.getOutputStream());
@@ -90,12 +91,15 @@ public class Server extends Thread{
                 input = new ObjectInputStream(conexao.getInputStream());
 
                 try{
+
                     String message = (String) input.readObject();//lê uma nova menssagem
+
+                    u.print("mensagem lida do cliente"+message);
 
                     u.print("A palavra contem "+message+" ? = "+pesquisarPalavra(message));
 
                 }catch (Exception erro){
-                    u.print("print");
+                    u.print("erro ao obter fluxo de dado do cliente");
                 }
 
 

@@ -1,55 +1,51 @@
 package com.trairas.nig.peer_to.Util;
 
+import android.content.Context;
+
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
 
 
-    public class client extends Thread {
+public class client {
 
         private ObjectOutputStream output; //gera o fluxo de saida para o servidor
         private ObjectInputStream input; //gera o fluxo de entrada a partir do servidor
         private String message = "";//mensagem do servidor
-        private String palavra_consulta;
-        private Util u;
-
-
-        public void rodarCliente(String ip, String palavra){
-            this.palavra_consulta = palavra;
-
-            try{
-                // Cria um Socket conexao passando como parâmetro o ip e a porta do servidor
-                Socket conexao = new Socket(ip,12345);
-                //cria uma thread que envia a conexao
-                Thread t = new client(conexao);
-                //inicia o thread
-                t.start();
-            }catch(IOException e){
-                u.print("IOException"+e);
-            }
-        }
-
-        public client(){
-            u = new Util();
-        }
-
+        Util u = new Util();
         private Socket conexao;
-        public client(Socket s){//recebe o valor do socket enviado na thread
-            conexao = s;
+        private String comando;
+
+
+
+
+        public client(String ip, String comando){//recebe o valor do socket enviado na thread
+
+            this.comando = comando;
+
+            try {
+                conexao = new Socket(ip, 12345);
+            }catch (Exception erro){
+                u.print("Erro ao insranciar o socket cliente.\n"+erro);
+            }
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        processarConexao();
+                    }
+                    catch (Exception erro){
+                     u.print("Errro ao processarConexao = "+erro);
+                    }
+
+                }
+            }).start();
+
+
         }
 
-        private void sendData(String message){
-
-
-            try{
-                output.writeObject(message);
-                output.flush();//esvazia a saida para o cliente
-                u.print("\nCLIENTE>>"+message);
-            }catch(IOException io){
-                u.print("\nError writing objetc");}
-
-        }
-
-        public void run(){
+        private void processarConexao(){
             try{//cria uma printstream para pegar as informacoes enviadas do servidor
 
                 output = new ObjectOutputStream(conexao.getOutputStream());
@@ -57,7 +53,8 @@ import java.net.Socket;
                 input = new ObjectInputStream(conexao.getInputStream());
 
                 try{//lê e exibe a menssagem
-                    sendData(palavra_consulta);
+                    u.print("Palavra a ser enviada a aservidor = "+comando);
+                    sendData(comando);
                     message = (String) input.readObject();//lê uma nova menssagem
                     u.print("\n"+message);
                 }catch(ClassNotFoundException c){
@@ -68,6 +65,7 @@ import java.net.Socket;
                 u.print("IOException"+e);
             }finally{
                 try {
+                    u.print("fechando socket");
                     conexao.close();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
@@ -75,5 +73,18 @@ import java.net.Socket;
                 }
             }
         }
+
+        private void sendData(String message){
+
+            try{
+                output.writeObject(message);
+                output.flush();//esvazia a saida para o cliente
+                u.print("\nMensagem enviada = "+message);
+            }catch(IOException io){
+                u.print("\nError writing objetc");}
+
+        }
+
+
     }
 
