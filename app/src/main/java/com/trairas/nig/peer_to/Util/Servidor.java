@@ -2,7 +2,6 @@ package com.trairas.nig.peer_to.Util;
 
 
 import android.content.Context;
-
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,141 +13,138 @@ import java.net.Socket;
 
 public class Servidor {
 
+
     private ObjectOutputStream output; //gera o fluxo de saida para o cliente
     private ObjectInputStream input; // gera o fluxo de entrada a apartir do cliente
     private ServerSocket server; //socket de servidor
     private Socket connection; //conexao com o cliente
     private int counter =  1;
+
+
     OperArquivos opr;
     Context c;
-
     Util u = new Util();
 
     //configura a GUI
-public Servidor(Context ctx){
+    public Servidor(Context ctx){
+        opr = new OperArquivos();
+        c = ctx;
 
-    opr = new OperArquivos();
-    c = ctx;
-
-}    //fim do construtor do servidor
-
-
-public void runServer(){
-    
-try{//config o servidor para receber conexões; processa as conexoes
-    server = new ServerSocket(12345,100); //cria ServerSpcket
-    
-    
-    try{
-        waitForConnection();
-        getStreams();
-        ProcessConection();
-    }catch(EOFException e){
-    displayMessage("\nServer Termined connection");
     }
-    finally{
-    closeConection(); //fecha a conexao
-    ++counter;
-    }
-    
-}
-catch(IOException io){
-io.printStackTrace();
-}
-}
-
-//espera que a conexao chegue e então exibe informações sobre a conexão
-private void waitForConnection()throws IOException{
-
-    displayMessage("Waiting for connection");
-    connection = server.accept(); //permite que o servidor aceite a conexão
-    displayMessage("Connection "+counter+" received from: "+connection.getInetAddress().getHostName());
-}
 
 
-//ontém fluxos para enviar e receber dados
-private void getStreams() throws IOException{
-    //configura o fluxo de saida de dados
-output = new ObjectOutputStream(connection.getOutputStream());
-    //configura o fluxo de entrada de dados
-input = new ObjectInputStream(connection.getInputStream());
- 
-    displayMessage("\n I/O streams\n");
-}
+    public void runServer(){
+
+        try{//config o servidor para receber conexões; processa as conexoes
+            server = new ServerSocket(12345,100); //cria ServerSpcket
 
 
-//processa a conexão com o cliente
-private void  ProcessConection() throws IOException{
-String message = "Connection sucessful!";
-    sendData(message);//envia uma menssagem de conexão bem sucedida
-    
-    //ativa a enterField de modo que o usuário do servidor possa enviar menssagens  
-    setTextFieldEditable(true);
-    
-    //processa as menssagens enviadas pelo cliente
-    do{
-    
-        try{//lê e exibe a menssagem
-            message = (String) input.readObject();//lê uma nova menssagem
-            displayMessage("\n"+message);
-            pesquisarPalavra(message);
+            try{
+                waitForConnection();
+                getStreams();
+                ProcessConection();
+            }catch(EOFException e){
+                displayMessage("\nServer Termined connection");
+            }
+            finally{
+                closeConection(); //fecha a conexao
+                ++counter;
+            }
 
-
-            /**---------------------------------------------------------------**/
-
-
-        }catch(ClassNotFoundException c){
-        displayMessage("\nUnknowm object type received");
         }
-    
-    }while(!message.equals("CLIENT>>> TERMINATE"));
-}
+        catch(IOException io){
+            io.printStackTrace();
+        }
+    }
+
+    //espera que a conexao chegue e então exibe informações sobre a conexão
+    private void waitForConnection()throws IOException{
+
+        displayMessage("Waiting for connection");
+        connection = server.accept(); //permite que o servidor aceite a conexão
+        displayMessage("Connection "+counter+" received from: "+connection.getInetAddress().getHostName());
+    }
+
+    //ontém fluxos para enviar e receber dados
+    private void getStreams() throws IOException{
+        //configura o fluxo de saida de dados
+        output = new ObjectOutputStream(connection.getOutputStream());
+        //configura o fluxo de entrada de dados
+        input = new ObjectInputStream(connection.getInputStream());
+
+        displayMessage("\n I/O streams\n");
+    }
+
+    //processa a conexão com o cliente
+    private void  ProcessConection() throws IOException{
+        String message = "Connection sucessful!";
+        sendData(message);//envia uma menssagem de conexão bem sucedida
+
+        //ativa a enterField de modo que o usuário do servidor possa enviar menssagens
+        setTextFieldEditable(true);
 
 
-//fecha os fluxos e os sockets
-private void closeConection(){
 
-    displayMessage("\nTerminating connection\n");
-    setTextFieldEditable(false);//desativa a enterField
-    
-    try{
-    output.close();
-    input.close();
-    connection.close();
-    }catch(IOException io){}
-    
-}
+        //processa as menssagens enviadas pelo cliente
+        do{
+
+            try{//lê e exibe a menssagem
+                message = (String) input.readObject();//lê uma nova menssagem
+                displayMessage("\n"+message);
+                u.print("CS_: senvidor enviando menssagem :");
+                sendData(pesquisarPalavra(message));
+
+            }catch(ClassNotFoundException c){
+                displayMessage("\nUnknowm object type received");
+            }
+
+       }while(!message.equals("CLIENT>>> TERMINATE"));
+    }
+
+    //fecha os fluxos e os sockets
+    private void closeConection(){
+
+        displayMessage("\nTerminating connection\n");
+        setTextFieldEditable(false);//desativa a enterField
+
+        try{
+            output.close();
+            input.close();
+            connection.close();
+        }catch(IOException io){}
+
+    }
+
+    //envia menssagem ao cliente
+    private void sendData(String message){
+
+        try{
+            output.writeObject("SERVER>> " +message);
+            output.flush();//esvazia a saida para o cliente
+            displayMessage("\nSERVER>> "+message);
+        }catch(IOException io){
+            u.print("\nError writing objetc");
+        }
+    }
+
+    //manipula a displayArea na  thread de despacho de eventos
+    private void displayMessage(final String messageToDisplay){
+        u.print("MD =: "+messageToDisplay);
+    }
+
+    //manipula a displayArea na Thread de despacho de eventos
+    private void setTextFieldEditable(boolean b) {
+
+    }
 
 
-//envia menssagem ao cliente
-private void sendData(String message){
 
-try{
-output.writeObject("SERVER>> " +message);
-output.flush();//esvazia a saida para o cliente
-displayMessage("\nSERVER>> "+message);
-}catch(IOException io){
-    u.print("\nError writing objetc");}
+    /**----------------------------------------------------------------------------**/
 
-}
-
-
-//manipula a displayArea na  thread de despacho de eventos
-private void displayMessage(final String messageToDisplay){
-   u.print(messageToDisplay);
-}
-
-
-//manipula a displayArea na Thread de despacho de eventos
-private void setTextFieldEditable(boolean b) {
-
-}
-
-/**----------------------------------------------------------------------------**/
-
-private void pesquisarPalavra(String palavra){
+private String pesquisarPalavra(String palavra){
 
     String[] palavras = opr.Todas_palavras(opr.ler(c, "words.wd"));
+
     boolean found =  false;
 
     for(int i=0;i<palavras.length;i++){
@@ -159,14 +155,9 @@ private void pesquisarPalavra(String palavra){
     }
 
     if (found){
-        sendData("ENCONTRADO");
+        return "ENCONTRADO em host";
     }
-    else {
-        sendData("NAO ENCONTRADO");
-    }
-
-
+        return "NAO ENCONTRADO";
 }
 
-    
 }

@@ -16,6 +16,7 @@ import com.trairas.nig.peer_to.Util.Cliente;
 import com.trairas.nig.peer_to.Util.OperArquivos;
 import com.trairas.nig.peer_to.Util.Servidor;
 import com.trairas.nig.peer_to.Util.Util;
+import com.trairas.nig.peer_to.Util.client;
 
 
 public class PesquisarPalavra extends Fragment {
@@ -27,11 +28,10 @@ public class PesquisarPalavra extends Fragment {
     TextView tv_2;
 
     EditText ed_1;
-    EditText ed_2;
 
     Button bt_1;
 
-    Cliente cliente;
+
     OperArquivos opr;
     Util u;
 
@@ -48,21 +48,24 @@ public class PesquisarPalavra extends Fragment {
         Toast.makeText(getContext(), m, Toast.LENGTH_SHORT);
     }
 
-    private void pesquisar_peer_por_peer(String palavra, String ip){
-        cliente = new Cliente(ip);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    cliente.runCliente();
-                }catch (Exception erro){
-                    u.print("Erro > \n"+erro);
+    private void pesquisar_peer_por_peer(final String palavra, final String ip){
+
+        try{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    new client().rodarCliente(ip, palavra);
                 }
-            }
-        }).start();
+            }).start();
+        }
+        catch (Exception erro){
+            u.print("Erro Cliente nao disponível - "+ip+" \n"+erro);
+        }
+
+
     }
 
-    private void pesquidarPalavra(String busca){
+    private void pesquisarPalavra(String busca){
 
         String[] palavras = opr.Todas_palavras(opr.ler(getContext(), "lista_ip.txt"));
 
@@ -70,7 +73,6 @@ public class PesquisarPalavra extends Fragment {
              u.print(palavras[i]);
             pesquisar_peer_por_peer(busca, palavras[i]);
         }
-
 
     }
 
@@ -90,7 +92,7 @@ public class PesquisarPalavra extends Fragment {
         tv_2.setText(R.string.pt_tv_2);
 
         ed_1 = (EditText) view.findViewById(R.id.pt_ed_1);
-        ed_1.setText(R.string.pt_ed_1);
+        ed_1.setText("");
 
 
         bt_1 = (Button) view.findViewById(R.id.pt_bt_1);
@@ -99,7 +101,7 @@ public class PesquisarPalavra extends Fragment {
         bt_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pesquidarPalavra(ed_1.getText().toString());
+                pesquisarPalavra(ed_1.getText().toString());
             }
         });
 

@@ -63,13 +63,11 @@ public class _main_ extends AppCompatActivity
             @Override
             public void run() {
                 try{
-                    //cliente =  new Cliente("10.0.0.107");
-                    //cliente.runCliente();
-                    servidor = new Servidor(getApplicationContext());
-                    servidor.runServer();
-                    Toast.makeText(getApplicationContext(), "End Server", Toast.LENGTH_SHORT);
+
+                    new Server().rodarServidor(getApplicationContext());
+
                 }catch (Exception erro){
-                    Toast.makeText(getApplicationContext(), "Nao deu", Toast.LENGTH_SHORT);
+                    ut.print("erro no servidor");
                 }
 
             }

@@ -14,7 +14,6 @@ public class Cliente{
 
     Util u = new Util();
 
-
     private ObjectOutputStream output; //gera o fluxo de saida para o servidor
     private ObjectInputStream input; //gera o fluxo de entrada a partir do servidor
     private String message = "";//mensagem do servidor
@@ -26,49 +25,50 @@ public class Cliente{
 
         chatServer =  host;
 
+       //sendData(event.getActionCommand());
+
     }
 
-    public String getMessage(){
-        return this.message;
-    }
-
-    public void runCliente(){
+    public void runCliente(String mensagem){
 
         try{//config o servidor para receber conexões; processa as conexoes
 
             connectToServer();//cria um socket para fazer a conexao
             getStreams(); //obtem os fluxos de entrada e saida
-            ProcessConection();//processa a conexao
+            ProcessConection(mensagem);//processa a conexao
         }catch(EOFException e){
-            displayMessage("\nClient Termined connection");
+            u.print("\nClientd Terminou a conecção.");
         }
         catch(IOException oi){
             oi.printStackTrace();
         }
         finally{
+            u.print("finally");
             closeConection(); //fecha a conexao
         }
     }
 
     //processa a conexão com o cliente
-    private void  ProcessConection() throws IOException{
-
-        //ativa a enterField de modo que o usuário do servidor possa enviar menssagens
-        setTextFieldEditable(true);
+    private void  ProcessConection(String mensagem) throws IOException{
 
 
         //processa as menssagens enviadas pelo cliente
+
         do{
+            u.print("---------Cliente------ : ");
 
-            try{//lê e exibe a menssagem
+            try {//lê e exibe a menssagem
                 message = (String) input.readObject();//lê uma nova menssagem
-                displayMessage("\n"+message);
-
-            }catch(ClassNotFoundException c){
-                displayMessage("\nUnknowm object type received");
+                //displayMessage("\n" + message);
+                u.print("Mensagem recebida do Servidor = "+message);
+                sendData(mensagem);
+            } catch (ClassNotFoundException c) {
+                u.print("\nUnknowm object type received");
             }
 
-        }while(!message.equals("CLIENT>>> TERMINATE"));
+        }while((!message.equals("SERVER>> ENCONTRADO em host")) || (!message.equals("SERVER>> NAO ENCONTRADO")));
+
+        closeConection();
     }
 
 
@@ -81,62 +81,47 @@ public class Cliente{
         //configura o fluxo de entrada de dados
         input = new ObjectInputStream(client.getInputStream());
 
-        displayMessage("\n I/O streams\n");
+        u.print("\n I/O streams\n");
     }
 
 
     private void connectToServer()throws IOException{
 
-        displayMessage("Attemping connection\n");
+        u.print("tentando conexão\n");
         //cria um socket para fazer a connexão
         client = new Socket(InetAddress.getByName(chatServer),12345);
 
         //exibe informções sobre a connexão
-        displayMessage("Connected to "+client.getInetAddress().getHostName());
+        u.print("Connected com "+client.getInetAddress().getHostName());
 
     }
 
 
-    public void sendData(String message){
+    private void sendData(String message){
 
         try{
-            output.writeObject("CLIENTE>> " +message);
+            output.writeObject(message);
             output.flush();//esvazia a saida para o cliente
-            displayMessage("\nCLIENTE>> "+message);
-        }catch(IOException io){u.print("\nError writing objetc");}
+            u.print("\nCLIENTE>>"+message);
+        }catch(IOException io){
+            u.print("\nError writing objetc");
+        }
 
     }
 
     //fecha os fluxos e os sockets
     private void closeConection(){
-
-        displayMessage("\nTerminating connection\n");
-        setTextFieldEditable(false);//desativa a enterField
-
+        u.print("fechando a conexão com  cliente!");
         try{
             output.close();
             input.close();
             client.close();
         }catch(IOException io){}
-
+        u.print("conexão fechada.");
     }
 
-
-
-    //manipula a displayArea na  thread de despacho de eventos
-    private void displayMessage(final String messageToDisplay){
-        u.print(messageToDisplay);
-    }
-
-    //manipula a displayArea na Thread de despacho de eventos
-    private void setTextFieldEditable(boolean b) {
-        u.print("setTextFieldEditable = "+b);
-    }
 
     /**--------------------------------------------**/
 
-    public String obterMensageServidor(String message){
-        return message;
-    }
 
 }
