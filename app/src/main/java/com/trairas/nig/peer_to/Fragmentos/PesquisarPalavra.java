@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.trairas.nig.peer_to.R;
 import com.trairas.nig.peer_to.Util.OperArquivos;
-import com.trairas.nig.peer_to.Util.Servidor;
 import com.trairas.nig.peer_to.Util.Util;
 
 import java.io.IOException;
@@ -23,9 +22,6 @@ import java.net.Socket;
 
 
 public class PesquisarPalavra extends Fragment {
-
-
-    Servidor servidor;
 
     TextView tv_1;
     TextView tv_2;
@@ -125,7 +121,7 @@ public class PesquisarPalavra extends Fragment {
 
 
 
-        public client(String ip, String comando){//recebe o valor do socket enviado na thread
+        public client(final String ip, String comando){//recebe o valor do socket enviado na thread
 
             this.comando = comando;
 
@@ -139,7 +135,7 @@ public class PesquisarPalavra extends Fragment {
                 @Override
                 public void run() {
                     try{
-                        processarConexao();
+                        processarConexao(ip);
                     }
                     catch (Exception erro){
                         u.print("Errro ao processarConexao = "+erro);
@@ -151,7 +147,7 @@ public class PesquisarPalavra extends Fragment {
 
         }
 
-    private void processarConexao(){
+    private void processarConexao(String ip){
         try{//cria uma printstream para pegar as informacoes enviadas do servidor
 
             output = new ObjectOutputStream(conexao.getOutputStream());

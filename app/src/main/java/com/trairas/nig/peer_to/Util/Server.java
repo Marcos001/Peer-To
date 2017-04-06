@@ -27,6 +27,7 @@ public class Server extends Thread{
             contexto = context;
 
             try{
+
                 s = new ServerSocket(12345);
 
                 u.print("criado socket servidor");
@@ -70,10 +71,11 @@ public class Server extends Thread{
             }
         }
 
+
         if (found){
-            return "A palavra foi encotnrada SIM!";
+            return "A Palavra foi encotrada em :";
         }
-            return "NAO encontrada Palavra!";
+            return "Palavra não encontradas nos Peers!";
     }
 
 

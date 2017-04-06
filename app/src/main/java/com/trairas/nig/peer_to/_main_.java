@@ -25,7 +25,6 @@ public class _main_ extends AppCompatActivity
 
 
     Util ut = new Util();
-    Servidor servidor;
 
     FragmentManager frag = getSupportFragmentManager();
 

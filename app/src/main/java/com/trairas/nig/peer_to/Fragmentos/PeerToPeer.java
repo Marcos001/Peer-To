@@ -109,6 +109,7 @@ public class PeerToPeer extends Fragment {
 
 
         ed_1 = (EditText) view.findViewById(R.id.pe_ed_1);
+        ed_1.setText("");
         bt_1 = (Button) view.findViewById(R.id.pe_bt_1);
         bt_1.setText("");
         lv_1 = (ListView) view.findViewById(R.id.pe_lv_1);

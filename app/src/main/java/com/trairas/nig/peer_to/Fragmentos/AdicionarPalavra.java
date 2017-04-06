@@ -70,33 +70,40 @@ public class AdicionarPalavra extends Fragment {
                 String res = ed.getText().toString();
                 String res_sig = ed_2.getText().toString();
 
+                if (res.length() > 0 && res_sig.length() > 0){
+                        u.print("Palavra nao Vazia");
+                    //-----------------Validando Resultados------------------------------------//
 
-                //-----------------Validando Resultados------------------------------------//
 
+                    //validar entradas do usurario - ele sempre tem como fazer merda
+                    if(u.validarCaracters(res, letrasValidas)){
 
-                //validar entradas do usurario - ele sempre tem como fazer merda
-                if(u.validarCaracters(res, letrasValidas)){
+                        //------------verificar se a palavra ja existe no discionario--------------------//
 
-                    //------------verificar se a palavra ja existe no discionario--------------------//
+                        String resultado_2 = "";
 
-                    String resultado_2 = "";
+                        if(u.verificar_se_ja_tem(res,c, "words.wd")){
+                            resultado_2 = "A palavra "+res+" já contem!";
+                        }
+                        else{
+                            resultado_2 = "A palavra "+res+" foi Salva!";
+                            op.salvar(res+"\n", c, "words.wd");
+                        }
 
-                    if(u.verificar_se_ja_tem(res,c, "words.wd")){
-                        resultado_2 = "A palavra "+res+" já contem!";
+                        toast(resultado_2);
                     }
                     else{
-                        resultado_2 = "A palavra "+res+" foi Salva!";
-                        op.salvar(res+"\n", c, "words.wd");
+                        toast("Palavra Inválida");
                     }
 
-                    toast(resultado_2);
-                }
-                else{
-                    toast("Palavra Inválida");
+                    ed.setText("");
+                    ed_2.setText("");
+
+                }else{
+                        u.print("Palavra Vazia");
+                    toast("Campo Vazio!");
                 }
 
-                ed.setText("");
-                ed_2.setText("");
 
 
             }
