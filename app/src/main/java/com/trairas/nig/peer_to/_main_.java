@@ -64,7 +64,7 @@ public class _main_ extends AppCompatActivity
             public void run() {
                 try{
 
-                    new Server().rodarServidor(getApplicationContext());
+                    new Server(getApplicationContext());
 
                 }catch (Exception erro){
                     ut.print("erro no servidor");

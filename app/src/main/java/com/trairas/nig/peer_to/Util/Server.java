@@ -13,38 +13,37 @@ public class Server extends Thread{
 
     private ObjectOutputStream output; //gera o fluxo de saida para o cliente
     private ObjectInputStream input; // gera o fluxo de entrada a apartir do cliente
-    private OperArquivos opr;
+    private OperArquivos opr = new OperArquivos();
     private Util u = new Util();
-    Context c;
-
-    public void rodarServidor(Context ct){
-        ServerSocket s = null;
-        opr = new OperArquivos();
+    Context contexto;
+    private Socket conexao;
+    ServerSocket s = null;
 
 
-        try{
-            s = new ServerSocket(12345);
-            u.print("criado socket servidor");
-            while(true){
-                Socket conexao = s.accept();
-                u.print("socket aceito");
-                Thread t = new Server(conexao);
-                t.start();
-                u.print("thread iniciada");
+
+
+        public Server(Context context){
+
+            contexto = context;
+
+            try{
+                s = new ServerSocket(12345);
+
+                u.print("criado socket servidor");
+                while(true){
+                    Socket conexao = s.accept();
+                    u.print("socket aceito");
+                    Thread t = new Server(conexao, context);
+                    t.start();
+                    u.print("thread iniciada");
+                }
+            }catch(IOException e){
+                u.print("IOException "+e);
             }
-        }catch(IOException e){
-            u.print("IOException "+e);
         }
-    }
 
-
-
-        private Socket conexao;
-
-        public Server(){}
-
-        public Server(Socket s){//recebe o valor do socket enviado na thread
-            conexao = s;
+        public Server(Socket s, Context c){//recebe o valor do socket enviado na thread
+            conexao = s; contexto = c;
         }
 
     private void sendData(String message){
@@ -59,9 +58,8 @@ public class Server extends Thread{
 
     private String pesquisarPalavra(String palavra){
 
-        meuApp mp =  new meuApp();
 
-        String[] palavras = opr.Todas_palavras(opr.ler(mp.getBaseContext(), "words.wd"));
+        String[] palavras = opr.Todas_palavras(opr.ler(contexto, "words.wd"));
 
         boolean found =  false;
 
@@ -73,9 +71,9 @@ public class Server extends Thread{
         }
 
         if (found){
-            return "SIM";
+            return "A palavra foi encotnrada SIM!";
         }
-            return "NAO";
+            return "NAO encontrada Palavra!";
     }
 
 
@@ -95,8 +93,9 @@ public class Server extends Thread{
                     String message = (String) input.readObject();//lê uma nova menssagem
 
                     u.print("mensagem lida do cliente"+message);
-
-                    u.print("A palavra contem "+message+" ? = "+pesquisarPalavra(message));
+                    String resposta = pesquisarPalavra(message);
+                    u.print("A palavra contem "+message+" ? = "+resposta);
+                    sendData("\n"+resposta);
 
                 }catch (Exception erro){
                     u.print("erro ao obter fluxo de dado do cliente");
