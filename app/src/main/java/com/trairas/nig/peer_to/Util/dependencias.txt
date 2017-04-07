@@ -1,0 +1,2 @@
+O Restante das classes da rede (Sockets) so serão disponibilizadas após o terminio
+do projeto. Por motivos de competição kkkk.
